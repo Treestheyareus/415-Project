@@ -18,9 +18,30 @@ app.use(express.urlencoded({ extended: true }));
 // Default route:
 app.get('/', function(req, res) {
   const myquery = req.query;
-  var outstring = '#Welcome';
+  var outstring = '<h1>Welcome</h1>';
   res.send(outstring);
 });
+
+/*
+
+  //Return all JSON objects in memory.
+  app.get('/rest/list/', function(req, res) {});
+
+*/
+
+/*
+
+  //Return object with matching ID
+  app.get('/rest/ticket/id/', function(req, res) {});
+
+*/
+
+/*
+
+  //Create a new ticket by sending a JSON file
+  app.post('/rest/ticket/', function(req, res) {});
+
+*/
 
 /* 
 Currently Unneeded Mongo Stuff
