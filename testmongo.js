@@ -18,16 +18,15 @@ app.use(express.urlencoded({ extended: true }));
 // Default route:
 app.get('/', function(req, res) {
   const myquery = req.query;
-  var outstring = 'Starting... ';
+  var outstring = '#Welcome';
   res.send(outstring);
 });
 
-app.get('/say/:name', function(req, res) {
-  res.send('Hello ' + req.params.name + '!');
-});
+/* 
+Currently Unneeded Mongo Stuff
 
+Route to access database:
 
-// Route to access database:
 app.get('/api/mongo/:item', function(req, res) {
 const client = new MongoClient(uri);
 const searchKey = "{ partID: '" + req.params.item + "' }";
@@ -54,3 +53,5 @@ async function run() {
 }
 run().catch(console.dir);
 });
+
+*/
