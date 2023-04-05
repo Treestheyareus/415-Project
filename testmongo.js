@@ -28,12 +28,20 @@ app.get('/rest/list/', function(req, res) {
 });
 
 
-/*
+//Return object with matching ID
+app.get('/rest/ticket/:id', function(req, res) {
+  const search_id = req.params.id;
+  var response = []
+  for (let i = 0; i < tickets.length; i++) {
+    if (tickets[i].id == search_id) {
+        response[response.length] = tickets[i];
+    }
+  }
+  
+  res.send(response);
+  
+});
 
-  //Return object with matching ID
-  app.get('/rest/ticket/id/', function(req, res) {});
-
-*/
 
 /*
 
@@ -47,6 +55,51 @@ app.get('/rest/list/', function(req, res) {
 var tickets = []
 tickets[0] = {
 "id": 35436,
+"created_at": "2015-07-20T22:55:29Z",
+"updated_at": "2016-05-05T10:38:52Z",
+"type": "incident",
+"subject": "MFP not working right",
+"description": "PC Load Letter? What does that even mean???",
+"priority": "med",
+"status": "open",
+"recipient": "support_example@selu.edu",
+"submitter": "Michael_bolton@selu.edu",
+"assignee_id": 235323,
+"follower_ids": [235323, 234],
+"tags": ["enterprise", "printers"],
+}
+tickets[1] = {
+"id": 12345,
+"created_at": "2015-07-20T22:55:29Z",
+"updated_at": "2016-05-05T10:38:52Z",
+"type": "incident",
+"subject": "MFP not working right",
+"description": "PC Load Letter? What does that even mean???",
+"priority": "med",
+"status": "open",
+"recipient": "support_example@selu.edu",
+"submitter": "Michael_bolton@selu.edu",
+"assignee_id": 235323,
+"follower_ids": [235323, 234],
+"tags": ["enterprise", "printers"],
+}
+tickets[2] = {
+"id": 77777,
+"created_at": "2015-07-20T22:55:29Z",
+"updated_at": "2016-05-05T10:38:52Z",
+"type": "incident",
+"subject": "MFP not working right",
+"description": "PC Load Letter? What does that even mean???",
+"priority": "med",
+"status": "open",
+"recipient": "support_example@selu.edu",
+"submitter": "Michael_bolton@selu.edu",
+"assignee_id": 235323,
+"follower_ids": [235323, 234],
+"tags": ["enterprise", "printers"],
+}
+tickets[3] = {
+"id": 00200,
 "created_at": "2015-07-20T22:55:29Z",
 "updated_at": "2016-05-05T10:38:52Z",
 "type": "incident",
