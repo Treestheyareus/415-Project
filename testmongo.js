@@ -18,16 +18,15 @@ app.use(express.urlencoded({ extended: true }));
 // Default route:
 app.get('/', function(req, res) {
   const myquery = req.query;
-  var outstring = '<h1>Welcome</h1>';
+  var outstring = "<h1>Welcome</h1>;
   res.send(outstring);
 });
 
-/*
+//Return all JSON objects in memory.
+app.get('/rest/list/', function(req, res) {
+  res.send(tickets);
+});
 
-  //Return all JSON objects in memory.
-  app.get('/rest/list/', function(req, res) {});
-
-*/
 
 /*
 
@@ -42,6 +41,25 @@ app.get('/', function(req, res) {
   app.post('/rest/ticket/', function(req, res) {});
 
 */
+
+// Here we store the basic JSON bits into memory using an array of JSON objects.
+
+var tickets = []
+tickets[0] = {
+"id": 35436,
+"created_at": "2015-07-20T22:55:29Z",
+"updated_at": "2016-05-05T10:38:52Z",
+"type": "incident",
+"subject": "MFP not working right",
+"description": "PC Load Letter? What does that even mean???",
+"priority": "med",
+"status": "open",
+"recipient": "support_example@selu.edu",
+"submitter": "Michael_bolton@selu.edu",
+"assignee_id": 235323,
+"follower_ids": [235323, 234],
+"tags": ["enterprise", "printers"],
+}
 
 /* 
 Currently Unneeded Mongo Stuff
