@@ -106,24 +106,36 @@ addTicket({
 
 function addTicket(ticket){
   text = JSON.stringify(ticket);
-  fs.appendFile('Tickets.json', text, function (err){
+  fs.appendFile('Tickets.json', text + "\n", function (err){
     if (err) throw err;
     console.log('Tickets.json appended to.')
   });
 }
 
 function getTickets(){
+  //Array to hold tickets after parsing.
+  var parsedTickets = []
+
   //Get contents of the file.
   var filecontent = fs.readFileSync('Tickets.json', 'utf8');
 
-  //Debug
-  console.log("Contents of var 'filecontent' are...")
-  console.log(filecontent)
-  console.log("Attempting to parse through JSON.parse...")
+  //Split with newlines as a delimiter
+  var splitTickets = filecontent.split("\n")
 
-  //Process with JSON.parse
-  j = JSON.parse(filecontent);
-  return j;
+  //Parse each spilt string in the array and add to indicated array.
+  for (let i = 0; i < splitTickets.length; i++) {
+
+    //Make sure we aren't catching any blank strings.
+    if (splitTickets[i]) {
+
+      parsedTickets[i] = JSON.parse(splitTickets[i]);
+
+    }
+    
+
+  }
+  //Return the array of parsed tickets.
+  return parsedTickets;
 }
 
 /* 
