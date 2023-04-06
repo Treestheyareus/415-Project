@@ -28,7 +28,9 @@ app.get('/', function(req, res) {
 
 //Return all JSON objects in memory.
 app.get('/rest/list/', function(req, res) {
-  res.send(getTickets());
+  j = getTickets();
+  console.log(j);
+  res.send("Check the logs.");
 });
 
 //Return object with matching ID
@@ -116,8 +118,8 @@ function getTickets(){
     filecontent = data;
   });
   //Process with JSON.parse
-  filecontent = JSON.parse(filecontent);
-  return filecontent;
+  j = JSON.parse(filecontent);
+  return j;
 }
 
 /* 
