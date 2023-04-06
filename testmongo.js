@@ -106,7 +106,7 @@ addTicket({
 
 function addTicket(ticket){
   text = JSON.stringify(ticket);
-  fs.appendFile('Tickets.json', text + '\n', function (err){
+  fs.appendFile('Tickets.json', text, function (err){
     if (err) throw err;
     console.log('Tickets.json appended to.')
   });
