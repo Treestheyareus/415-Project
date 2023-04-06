@@ -114,9 +114,7 @@ function addTicket(ticket){
 
 function getTickets(){
   //Get contents of the file.
-  var filecontent = fs.readFile('Tickets.json', 'utf8', function(err, data){
-    return data;
-  });
+  var filecontent = fs.readFileSync('Tickets.json', 'utf8');
 
   //Debug
   console.log("Contents of var 'filecontent' are...")
