@@ -109,7 +109,7 @@ function addTicket(ticket){
   //Debug Logs
   console.log('Stringified JSON:')
   console.log(text)
-  fs.appendFile('Tickets.json', text, function (err){
+  fs.appendFile('Tickets.json', text + '\n', function (err){
     if (err) throw err;
     console.log('Tickets.json appended to.')
   });
@@ -124,6 +124,9 @@ function getTickets(){
     console.log(data)
   });
   //Process with JSON.parse
+  console.log("Contents of var 'filecontent' are...")
+  console.log(filecontent)
+  console.log("Attempting to parse through JSON.parse...")
   j = JSON.parse(filecontent);
   return j;
 }
