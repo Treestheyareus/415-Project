@@ -34,9 +34,10 @@ app.get('/rest/list/', function(req, res) {
 });
 
 //Return object with matching ID
-/* app.get('/rest/ticket/:id', function(req, res) {
+app.get('/rest/ticket/:id', function(req, res) {
   const search_id = req.params.id;
   var response = []
+  var tickets = getTickets();
   for (let i = 0; i < tickets.length; i++) {
     if (tickets[i].id == search_id) {
         response[response.length] = tickets[i];
@@ -45,7 +46,7 @@ app.get('/rest/list/', function(req, res) {
   
   res.send(response);
   
-}); */
+});
 
 
 /*
