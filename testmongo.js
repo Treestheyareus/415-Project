@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', function(req, res) {
   const myquery = req.query;
   var outstring = "<h1>Welcome</h1>";
-  var outstring = outstring + "<br> Get Tickets with '/rest/list'";
+  var outstring = outstring + "Get Tickets with '/rest/list'";
   var outstring = outstring + "<br> Get One Ticket with '/rest/ticket/:id'";
   var outstring = outstring + "<br> Add a Ticket by sending JSON to '/rest/ticket'";
   res.send(outstring);
@@ -105,9 +105,11 @@ addTicket({
 
 function addTicket(ticket){
   text = JSON.stringify(ticket);
+  console.log('Stringified JSON:')
+  console.log(text)
   fs.appendFile('Tickets.json', text, function (err){
     if (err) throw err;
-    console.log('Tickets.json was altered by addTicket()')
+    console.log('Tickets.json appended.')
   });
 }
 
@@ -116,6 +118,8 @@ function getTickets(){
   //Populate from the file.
   fs.readFile('Tickets.json', function(err, data){
     filecontent = data;
+    console.log("File contents read:")
+    console.log(data)
   });
   //Process with JSON.parse
   j = JSON.parse(filecontent);
