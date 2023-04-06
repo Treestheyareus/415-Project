@@ -20,16 +20,19 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', function(req, res) {
   const myquery = req.query;
   var outstring = "<h1>Welcome</h1>";
+  var outstring = outstring + "<br> Get Tickets with '/rest/list'";
+  var outstring = outstring + "<br> Get One Ticket with '/rest/ticket/:id'";
+  var outstring = outstring + "<br> Add a Ticket by sending JSON to '/rest/ticket'";
   res.send(outstring);
 });
 
 //Return all JSON objects in memory.
 app.get('/rest/list/', function(req, res) {
-  res.send(tickets);
+  res.send(getTickets());
 });
 
 //Return object with matching ID
-app.get('/rest/ticket/:id', function(req, res) {
+/* app.get('/rest/ticket/:id', function(req, res) {
   const search_id = req.params.id;
   var response = []
   for (let i = 0; i < tickets.length; i++) {
@@ -40,7 +43,7 @@ app.get('/rest/ticket/:id', function(req, res) {
   
   res.send(response);
   
-});
+}); */
 
 
 /*
