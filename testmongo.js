@@ -30,8 +30,7 @@ app.get('/', function(req, res) {
 //Return all JSON objects in memory.
 app.get('/rest/list/', function(req, res) {
   j = getTickets();
-  console.log(j);
-  res.send("Check the logs.");
+  res.send(j);
 });
 
 //Return object with matching ID
