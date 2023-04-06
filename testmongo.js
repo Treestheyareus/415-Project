@@ -57,7 +57,7 @@ app.get('/rest/list/', function(req, res) {
 
 // Here we store our example JSON into the file.
 addTicket({
-"id": 35436,
+"id": 1,
 "created_at": "2015-07-20T22:55:29Z",
 "updated_at": "2016-05-05T10:38:52Z",
 "type": "incident",
@@ -72,7 +72,7 @@ addTicket({
 "tags": ["enterprise", "printers"],
 });
 addTicket({
-"id": 12367,
+"id": 2,
 "created_at": "2015-07-20T22:55:29Z",
 "updated_at": "2016-05-05T10:38:52Z",
 "type": "incident",
@@ -87,7 +87,7 @@ addTicket({
 "tags": ["enterprise", "printers"],
 });
 addTicket({
-"id": 77777,
+"id": 3,
 "created_at": "2015-07-20T22:55:29Z",
 "updated_at": "2016-05-05T10:38:52Z",
 "type": "incident",
