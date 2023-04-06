@@ -106,9 +106,6 @@ addTicket({
 
 function addTicket(ticket){
   text = JSON.stringify(ticket);
-  //Debug Logs
-  console.log('Stringified JSON:')
-  console.log(text)
   fs.appendFile('Tickets.json', text + '\n', function (err){
     if (err) throw err;
     console.log('Tickets.json appended to.')
@@ -116,17 +113,17 @@ function addTicket(ticket){
 }
 
 function getTickets(){
-  var filecontent;
-  //Populate from the file.
-  fs.readFile('Tickets.json', 'utf8', function(err, data){
-    filecontent = data;
-    console.log("File contents read:")
-    console.log(data)
+  //Get contents of the file.
+  var filecontent = fs.readFile('Tickets.json', 'utf8', function(err, data){
+    return data;
   });
-  //Process with JSON.parse
+
+  //Debug
   console.log("Contents of var 'filecontent' are...")
   console.log(filecontent)
   console.log("Attempting to parse through JSON.parse...")
+
+  //Process with JSON.parse
   j = JSON.parse(filecontent);
   return j;
 }
