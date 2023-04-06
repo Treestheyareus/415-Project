@@ -48,13 +48,12 @@ app.get('/rest/ticket/:id', function(req, res) {
   
 });
 
+//Create a new ticket by sending a JSON file
+app.post('/rest/ticket/', function(req, res) {
+  addTicket(req.body);
+  res.send(getTickets());
+});
 
-/*
-
-  //Create a new ticket by sending a JSON file
-  app.post('/rest/ticket/', function(req, res) {});
-
-*/
 
 // Here we store our example JSON into the file.
 addTicket({
