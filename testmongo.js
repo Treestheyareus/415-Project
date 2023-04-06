@@ -1,4 +1,5 @@
 const { MongoClient } = require("mongodb");
+var fs = require('fs');
 
 // The uri string must be the connection string for the database (obtained on Atlas).
 const uri = "mongodb+srv://mills415wrany:D88whBQ9NYyYgcS@cmps415.gt9j9mr.mongodb.net/?retryWrites=true&w=majority";
@@ -27,7 +28,6 @@ app.get('/rest/list/', function(req, res) {
   res.send(tickets);
 });
 
-
 //Return object with matching ID
 app.get('/rest/ticket/:id', function(req, res) {
   const search_id = req.params.id;
@@ -50,10 +50,8 @@ app.get('/rest/ticket/:id', function(req, res) {
 
 */
 
-// Here we store the basic JSON bits into memory using an array of JSON objects.
-
-var tickets = []
-tickets[0] = {
+// Here we store our example JSON into the file.
+addTicket({
 "id": 35436,
 "created_at": "2015-07-20T22:55:29Z",
 "updated_at": "2016-05-05T10:38:52Z",
@@ -67,9 +65,9 @@ tickets[0] = {
 "assignee_id": 235323,
 "follower_ids": [235323, 234],
 "tags": ["enterprise", "printers"],
-}
-tickets[1] = {
-"id": 12345,
+});
+addTicket({
+"id": 12367,
 "created_at": "2015-07-20T22:55:29Z",
 "updated_at": "2016-05-05T10:38:52Z",
 "type": "incident",
@@ -82,8 +80,8 @@ tickets[1] = {
 "assignee_id": 235323,
 "follower_ids": [235323, 234],
 "tags": ["enterprise", "printers"],
-}
-tickets[2] = {
+});
+addTicket({
 "id": 77777,
 "created_at": "2015-07-20T22:55:29Z",
 "updated_at": "2016-05-05T10:38:52Z",
@@ -97,21 +95,26 @@ tickets[2] = {
 "assignee_id": 235323,
 "follower_ids": [235323, 234],
 "tags": ["enterprise", "printers"],
+});
+
+
+function addTicket(ticket){
+  text = JSON.stringify(ticket);
+  fs.appendFile('Tickets.json', text, function (err){
+    if (err) throw err;
+    console.log('Tickets.json was altered by addTicket()')
+  });
 }
-tickets[3] = {
-"id": 00200,
-"created_at": "2015-07-20T22:55:29Z",
-"updated_at": "2016-05-05T10:38:52Z",
-"type": "incident",
-"subject": "MFP not working right",
-"description": "PC Load Letter? What does that even mean???",
-"priority": "med",
-"status": "open",
-"recipient": "support_example@selu.edu",
-"submitter": "Michael_bolton@selu.edu",
-"assignee_id": 235323,
-"follower_ids": [235323, 234],
-"tags": ["enterprise", "printers"],
+
+function getTickets(){
+  var filecontent;
+  //Populate from the file.
+  fs.readFile('Tickets.json', function(err, data){
+    filecontent = data;
+  });
+  //Process with JSON.parse
+  filecontent = JSON.parse(filecontent);
+  return filecontent;
 }
 
 /* 
