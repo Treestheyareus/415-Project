@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb");
 var fs = require('fs');
+const bodyParser = require("body-parser")
 
 // The uri string must be the connection string for the database (obtained on Atlas).
 const uri = "mongodb+srv://mills415wrany:D88whBQ9NYyYgcS@cmps415.gt9j9mr.mongodb.net/?retryWrites=true&w=majority";
@@ -105,18 +106,19 @@ addTicket({
 
 function addTicket(ticket){
   text = JSON.stringify(ticket);
+  //Debug Logs
   console.log('Stringified JSON:')
   console.log(text)
   fs.appendFile('Tickets.json', text, function (err){
     if (err) throw err;
-    console.log('Tickets.json appended.')
+    console.log('Tickets.json appended to.')
   });
 }
 
 function getTickets(){
   var filecontent;
   //Populate from the file.
-  fs.readFile('Tickets.json', function(err, data){
+  fs.readFile('Tickets.json', 'utf8', function(err, data){
     filecontent = data;
     console.log("File contents read:")
     console.log(data)
