@@ -50,8 +50,9 @@ app.get('/rest/ticket/:id', function(req, res) {
 
 //Create a new ticket by sending a JSON file
 app.post('/rest/ticket/', function(req, res) {
-  
-  res.json({requestBody:req.body});
+  var input = req.body;
+  addTicket(input);
+  res.json(input);
 
   /*
   addTicket(req.body);
