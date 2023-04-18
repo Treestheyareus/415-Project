@@ -53,60 +53,9 @@ app.post('/rest/ticket/', function(req, res) {
   var input = req.body;
   addTicket(input);
   res.json(input);
-
-  /*
-  addTicket(req.body);
-  res.send(getTickets());
-  */
+  
 });
 
-
-// Here we store our example JSON into the file.
-addTicket({
-"id": 1,
-"created_at": "2015-07-20T22:55:29Z",
-"updated_at": "2016-05-05T10:38:52Z",
-"type": "incident",
-"subject": "MFP not working right",
-"description": "PC Load Letter? What does that even mean???",
-"priority": "med",
-"status": "open",
-"recipient": "support_example@selu.edu",
-"submitter": "Michael_bolton@selu.edu",
-"assignee_id": 235323,
-"follower_ids": [235323, 234],
-"tags": ["enterprise", "printers"],
-});
-addTicket({
-"id": 2,
-"created_at": "2015-07-20T22:55:29Z",
-"updated_at": "2016-05-05T10:38:52Z",
-"type": "incident",
-"subject": "MFP not working right",
-"description": "PC Load Letter? What does that even mean???",
-"priority": "med",
-"status": "open",
-"recipient": "support_example@selu.edu",
-"submitter": "Michael_bolton@selu.edu",
-"assignee_id": 235323,
-"follower_ids": [235323, 234],
-"tags": ["enterprise", "printers"],
-});
-addTicket({
-"id": 3,
-"created_at": "2015-07-20T22:55:29Z",
-"updated_at": "2016-05-05T10:38:52Z",
-"type": "incident",
-"subject": "MFP not working right",
-"description": "PC Load Letter? What does that even mean???",
-"priority": "med",
-"status": "open",
-"recipient": "support_example@selu.edu",
-"submitter": "Michael_bolton@selu.edu",
-"assignee_id": 235323,
-"follower_ids": [235323, 234],
-"tags": ["enterprise", "printers"],
-});
 
 
 function addTicket(ticket){
@@ -118,33 +67,38 @@ function addTicket(ticket){
 }
 
 function getTickets(){
-  //Array to hold tickets after parsing.
+  //Array to hold tickets after retrival.
   var parsedTickets = []
 
-  //Get contents of the file.
-  var filecontent = fs.readFileSync('Tickets.json', 'utf8');
+  //Now using mongodb as data source.
+  //This will place all tickets in the collection into the array.
+  const client = new MongoClient(uri);
+  async function run(){
+    try {
+      
+      const database = client.db('415Tickets');
+      const tickets = database.collection('Tickets');
+      parsedTickets = tickets.find();
 
-  //Split with newlines as a delimiter
-  var splitTickets = filecontent.split("\n")
+    } finally {
 
-  //Parse each spilt string in the array and add to indicated array.
-  for (let i = 0; i < splitTickets.length; i++) {
-
-    //Make sure we aren't catching any blank strings.
-    if (splitTickets[i]) {
-
-      parsedTickets[i] = JSON.parse(splitTickets[i]);
+      await client.close();
 
     }
-    
 
   }
-  //Return the array of parsed tickets.
+
+  run().catch(console.dir);
+
+  //Return the array of tickets.
   return parsedTickets;
 }
 
+
+
 /* 
-Currently Unneeded Mongo Stuff
+
+Old Mongo code retained as a reference.
 
 Route to access database:
 
