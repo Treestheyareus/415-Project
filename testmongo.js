@@ -68,17 +68,30 @@ function addTicket(ticket){
 
 function getTickets(){
   //Array to hold tickets after retrival.
-  var parsedTickets = []
+  var all_tickets = []
 
   //Now using mongodb as data source.
   //This will place all tickets in the collection into the array.
   const client = new MongoClient(uri);
+
+  //Function to be called by forEach later.
+  //Should be called for each ticket.
+  function include_ticket(ticket){
+    all_tickets = all_tickets + ticket;
+  }
+
   async function run(){
     try {
       
       const database = client.db('415Tickets');
       const tickets = database.collection('Tickets');
-      parsedTickets = tickets.find();
+
+      //Find returns a 'cursor' object, from which data is accessed.
+      //With no params, it should return everything.
+      const cursor = tickets.find();
+
+      //forEach should run the listed function on each element returned.
+      await cursor.forEach(include_ticket);
 
     } finally {
 
@@ -91,7 +104,7 @@ function getTickets(){
   run().catch(console.dir);
 
   //Return the array of tickets.
-  return parsedTickets;
+  return all_tickets;
 }
 
 
