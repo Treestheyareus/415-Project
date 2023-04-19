@@ -74,13 +74,6 @@ function getTickets(){
   //This will place all tickets in the collection into the array.
   const client = new MongoClient(uri);
 
-  //Function to be called by forEach later.
-  //Should be called for each ticket.
-  function include_ticket(ticket){
-    all_tickets = all_tickets + ticket;
-    console.log("Including a ticket...");
-  }
-
   async function run(){
     try {
       
@@ -92,8 +85,10 @@ function getTickets(){
       const cursor = tickets.find();
 
       //forEach should run the listed function on each element returned.
+      console.log("Database Contents:");
       await cursor.forEach(console.dir);
-      await cursor.forEach(include_ticket);
+      await cursor.rewind();
+      all_tickets = await cursor.toArray();
 
     } finally {
 
