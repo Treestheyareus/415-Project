@@ -62,13 +62,13 @@ function addTicket(ticket){
   text = JSON.stringify(ticket);
   fs.appendFile('Tickets.json', text + "\n", function (err){
     if (err) throw err;
-    console.log('Tickets.json appended to.')
+    console.log('Tickets.json appended to.');
   });
 }
 
 function getTickets(){
   //Array to hold tickets after retrival.
-  var all_tickets = []
+  var all_tickets = [];
 
   //Now using mongodb as data source.
   //This will place all tickets in the collection into the array.
@@ -78,6 +78,7 @@ function getTickets(){
   //Should be called for each ticket.
   function include_ticket(ticket){
     all_tickets = all_tickets + ticket;
+    console.log("Including a ticket...");
   }
 
   async function run(){
@@ -91,6 +92,7 @@ function getTickets(){
       const cursor = tickets.find();
 
       //forEach should run the listed function on each element returned.
+      await cursor.forEach(console.dir);
       await cursor.forEach(include_ticket);
 
     } finally {
