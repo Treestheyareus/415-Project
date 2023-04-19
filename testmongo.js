@@ -91,6 +91,7 @@ function getTickets(){
       await cursor.forEach(console.dir);
       await cursor.rewind();
       all_tickets = await cursor.toArray();
+      console.log("Contents of All_Tickets:" + "\n" + all_tickets);
 
     } finally {
 
