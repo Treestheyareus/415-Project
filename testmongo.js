@@ -84,7 +84,7 @@ function getTickets(){
 
       //Find returns a 'cursor' object, from which data is accessed.
       //With no params, it should return everything.
-      const cursor = tickets.find({});
+      var cursor = tickets.find({});
 
       //forEach should run the listed function on each element returned.
       //console.log("Database Contents:");
