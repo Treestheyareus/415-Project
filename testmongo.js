@@ -88,7 +88,8 @@ function getTickets(){
 
       //forEach should run the listed function on each element returned.
       //console.log("Database Contents:");
-      //await cursor.forEach(console.dir);
+      console.log("cursor.forEach(console.dir)...");
+      await cursor.forEach(console.dir);
       //await cursor.rewind();
       await cursor.forEach(function(err, result){
         if(err) throw err;
@@ -98,7 +99,6 @@ function getTickets(){
         console.log("ALL_TICKETS:");
         console.log(all_tickets);
       });
-      //console.log("Contents of All_Tickets:" + "\n" + all_tickets);
 
     } finally {
 
