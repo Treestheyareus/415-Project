@@ -90,9 +90,9 @@ function getTickets(){
       //console.log("Database Contents:");
       //await cursor.forEach(console.dir);
       //await cursor.rewind();
-      await cursor.toArray(function(err, result){
+      await cursor.forEach(function(err, result){
         if(err) throw err;
-        all_tickets = result;
+        all_tickets = all_tickets + result;
         console.log("RESULT:");
         console.log(result);
         console.log("ALL_TICKETS:");
