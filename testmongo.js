@@ -76,7 +76,7 @@ function getTickets(){
   //This will place all tickets in the collection into the array.
   const client = new MongoClient(uri);
 
-  async function run(){
+  function run(){
     try {
       
       const database = client.db('415Tickets');
@@ -87,10 +87,10 @@ function getTickets(){
       const cursor = tickets.find({});
 
       //forEach should run the listed function on each element returned.
-      console.log("Database Contents:");
+      //console.log("Database Contents:");
       //await cursor.forEach(console.dir);
       //await cursor.rewind();
-      await cursor.toArray(function(err, result){
+      cursor.toArray(function(err, result){
         if(err) throw err;
         all_tickets = result;
         console.log("RESULT:");
@@ -98,11 +98,11 @@ function getTickets(){
         console.log("ALL_TICKETS:");
         console.log(all_tickets);
       });
-      console.log("Contents of All_Tickets:" + "\n" + all_tickets);
+      //console.log("Contents of All_Tickets:" + "\n" + all_tickets);
 
     } finally {
 
-      await client.close();
+      client.close();
 
     }
 
