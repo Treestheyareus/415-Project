@@ -30,10 +30,16 @@ app.get('/', function(req, res) {
 //Return all documents in the database
 app.get('/rest/list/', function(req, res) {
   var j = [];
-  j = getTickets();
-  console.log("Contents of 'j' are...");
-  console.log(j);
-  res.send(j);
+
+  async function f1(){
+    j = await getTickets();
+    console.log("Contents of 'j' are...");
+    console.log(j);
+    res.send(j);
+  }
+
+  f1();
+  
 });
 
 //Return object with matching ID
@@ -80,25 +86,31 @@ function getTickets(){
   const database = client.db('415Tickets');
   const tickets = database.collection('Tickets');
 
-  //Find returns a 'cursor' object, from which data is accessed.
-  //With no params, it should return everything.
-  var cursor = tickets.find({});
 
-  //forEach should run the listed function on each element returned.
-  //console.log("Database Contents:");
-  while(cursor.hasNext()){
-    var x = cursor.tryNext();
-    console.log("Adding to all_tickets...");
-    console.log(x);
-    all_tickets[all_tickets.length] = x;
-    console.log("Contents of All Tickets...");
+  async function f1(){
+    //Find returns a 'cursor' object, from which data is accessed.
+    //With no params, it should return everything.
+    var cursor = tickets.find({});
+
+    //forEach should run the listed function on each element returned.
+    //console.log("Database Contents:");
+    while(cursor.hasNext()){
+      var x = cursor.tryNext();
+      console.log("Adding to all_tickets...");
+      console.log(x);
+      all_tickets[all_tickets.length] = x;
+      console.log("Contents of All Tickets...");
+      console.log(all_tickets);
+    }
+    client.close();
+    console.log("About to return all_tickets.");
+    console.log("The contents are:");
     console.log(all_tickets);
+    return all_tickets;
   }
-  client.close();
-  console.log("About to return all_tickets.");
-  console.log("The contents are:");
-  console.log(all_tickets);
-  return all_tickets;
+
+  return f1();
+
 }
 
 
