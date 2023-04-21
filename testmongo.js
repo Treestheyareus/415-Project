@@ -46,12 +46,28 @@ app.get('/rest/list/', function(req, res) {
 app.get('/rest/ticket/:id', function(req, res) {
   const search_id = req.params.id;
   var response = []
-  var tickets = getTickets();
-  for (let i = 0; i < tickets.length; i++) {
-    if (tickets[i].id == search_id) {
-        response[response.length] = tickets[i];
+
+  //Here we will find the requested document.
+  const client = new MongoClient(uri);
+  const database = client.db('415Tickets');
+  const tickets = database.collection('Tickets');
+
+  async function f1(){
+    //Code is identical to finding all.
+    //Except for the search term between brackets in the line below.
+    var cursor = tickets.find({"id":search_id});
+
+    //forEach should run the listed function on each element returned.
+    //console.log("Database Contents:");
+    while(await cursor.hasNext()){
+      var x = await cursor.tryNext();
+      all_tickets[all_tickets.length] = x;
     }
+    await client.close();
+    return all_tickets;
   }
+
+  return f1();
   
   res.send(response);
   
@@ -96,16 +112,9 @@ function getTickets(){
     //console.log("Database Contents:");
     while(await cursor.hasNext()){
       var x = await cursor.tryNext();
-      console.log("Adding to all_tickets...");
-      console.log(x);
       all_tickets[all_tickets.length] = x;
-      console.log("Contents of All Tickets...");
-      console.log(all_tickets);
     }
     await client.close();
-    console.log("About to return all_tickets.");
-    console.log("The contents are:");
-    console.log(all_tickets);
     return all_tickets;
   }
 
