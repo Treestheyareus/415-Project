@@ -58,11 +58,18 @@ app.get('/rest/ticket/:id', function(req, res) {
     console.log("Search term is: " + search_id);
     response = await tickets.findOne({"id":search_id});
     await client.close();
+    console.log("Response is...");
+    console.log(response);
+    res.send(response);
   }
 
   f1();
   
+  /*
+  console.log("Response is...");
+  console.log(response);
   res.send(response);
+  */
   
 });
 
