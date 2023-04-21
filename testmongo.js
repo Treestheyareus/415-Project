@@ -61,10 +61,10 @@ app.get('/rest/ticket/:id', function(req, res) {
     //console.log("Database Contents:");
     while(await cursor.hasNext()){
       var x = await cursor.tryNext();
-      all_tickets[all_tickets.length] = x;
+      response[response.length] = x;
     }
     await client.close();
-    return all_tickets;
+    return response;
   }
 
   return f1();
