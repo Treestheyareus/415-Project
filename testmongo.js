@@ -64,10 +64,9 @@ app.get('/rest/ticket/:id', function(req, res) {
       response[response.length] = x;
     }
     await client.close();
-    return response;
   }
 
-  return f1();
+  f1();
   
   res.send(response);
   
