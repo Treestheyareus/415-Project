@@ -108,6 +108,9 @@ function getTickets(){
   run().catch(console.dir);
 
   //Return the array of tickets.
+  console.log("About to return all_tickets.");
+  console.log("The contents are:");
+  console.log(all_tickets);
   return all_tickets;
 }
 
