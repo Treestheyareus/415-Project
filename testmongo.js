@@ -88,8 +88,11 @@ function getTickets(){
 
       //forEach should run the listed function on each element returned.
       //console.log("Database Contents:");
-      while(await cursor.hasNext()){
-        all_tickets = all_tickets + await cursor.tryNext();
+      while(cursor.hasNext()){
+        var x = cursor.tryNext();
+        console.log("Adding to all_tickets...");
+        console.log(x);
+        all_tickets = all_tickets + cursor.tryNext();
       }
 
     } finally {
