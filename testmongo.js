@@ -30,6 +30,11 @@ app.get('/', function(req, res) {
 //Return all documents in the database
 app.get('/rest/list/', function(req, res) {
   var j = [];
+  /*
+    Here I am trying desperately to stop the rest of the code from executing
+    before the function returns, which ends up leaving the content blank
+    despite the fact that the function correctly populates it.
+  */
   async function holdHorses(){
     j =  await getTickets();
   }
@@ -72,7 +77,7 @@ function addTicket(ticket){
   });
 }
 
-function getTickets(){
+async function getTickets(){
   //Array to hold tickets after retrival.
   var all_tickets = [];
 
