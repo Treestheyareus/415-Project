@@ -28,8 +28,12 @@ app.get('/', function(req, res) {
 });
 
 //Return all documents in the database
-app.get('/rest/list/', async function(req, res) {
-  var j = await getTickets();
+app.get('/rest/list/', function(req, res) {
+  var j = [];
+  async function holdHorses(){
+    j =  await getTickets();
+  }
+  holdHorses();
   console.log("Contents of 'j' are...");
   console.log(j);
   res.send(j);
@@ -68,7 +72,7 @@ function addTicket(ticket){
   });
 }
 
-async function getTickets(){
+function getTickets(){
   //Array to hold tickets after retrival.
   var all_tickets = [];
 
