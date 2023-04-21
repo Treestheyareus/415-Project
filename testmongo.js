@@ -45,7 +45,7 @@ app.get('/rest/list/', function(req, res) {
 //Return object with matching ID
 app.get('/rest/ticket/:id', function(req, res) {
   const search_id = req.params.id;
-  var response = []
+  var response = [];
 
   //Here we will find the requested document.
   const client = new MongoClient(uri);
@@ -55,6 +55,7 @@ app.get('/rest/ticket/:id', function(req, res) {
   async function f1(){
     //Code is identical to finding all.
     //Except for the search term between brackets in the line below.
+    console.log("Search term is: " + search_id);
     var cursor = tickets.find({"id":search_id});
 
     //forEach should run the listed function on each element returned.
@@ -62,6 +63,7 @@ app.get('/rest/ticket/:id', function(req, res) {
     while(await cursor.hasNext()){
       var x = await cursor.tryNext();
       response[response.length] = x;
+      console.log("Hit.");
     }
     await client.close();
   }
