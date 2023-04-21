@@ -25,7 +25,7 @@ app.get('/', function(req, res) {
   var outstring = outstring + "<br> Get One Ticket with GET '/rest/ticket/:id'";
   var outstring = outstring + "<br> Add a Ticket by sending JSON to POST '/rest/ticket'";
   var outstring = outstring + "<br> Delete a Ticket by DELETE '/rest/ticket/:id'";
-  var outstring = outstring + "<br> Update a Ticket by PUT '/rest/ticket/:id'";
+  var outstring = outstring + "<br> Update a Ticket by PUT '/rest/ticket/:id' with JSON";
   res.send(outstring);
 });
 
@@ -138,6 +138,29 @@ app.delete('/rest/ticket/:id', function(req, res){
 
 app.put('/rest/ticket/:id', function(req, res){
   //Update a ticket.
+
+  async function f1(){
+    //Store ID to find targets.
+    const search_id = req.params.id;
+    const document = rq.body;
+
+    //Setup
+    const client = new MongoClient(uri);
+    const database = client.db('415Tickets');
+    const tickets = database.collection('Tickets');
+
+    //Update it
+    const filter = { id:parseInt(search_id) };
+    const result = await tickets.updateOne(filter, document);
+    console.log(`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`);
+
+    //Finally
+    await client.close();
+    res.send(result.matchedCount + " documents matched. <br>" + result.modifiedCount + " documents were modified.");
+  }
+
+  f1();
+
 });
 
 function addTicket(ticket){
