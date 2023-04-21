@@ -87,7 +87,6 @@ async function getTickets(){
   //This will place all tickets in the collection into the array.
   async function run(){
     try {
-      
       const database = client.db('415Tickets');
       const tickets = database.collection('Tickets');
 
@@ -112,6 +111,9 @@ async function getTickets(){
       console.log("About to return all_tickets.");
       console.log("The contents are:");
       console.log(all_tickets);
+      let promise = new Promise(function(resolve){
+        resolve(all_tickets);
+      });
       return all_tickets;
     }
 
