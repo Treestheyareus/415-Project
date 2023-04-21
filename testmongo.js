@@ -93,6 +93,8 @@ function getTickets(){
         console.log("Adding to all_tickets...");
         console.log(x);
         all_tickets = all_tickets + cursor.tryNext();
+        console.log("Contents of All Tickets...");
+        console.log(all_tickets);
       }
 
     } finally {
