@@ -37,11 +37,11 @@ app.get('/rest/list/', function(req, res) {
   */
   async function holdHorses(){
     j =  await getTickets();
+    console.log("Contents of 'j' are...");
+    console.log(j);
+    res.send(j);
   }
   holdHorses();
-  console.log("Contents of 'j' are...");
-  console.log(j);
-  res.send(j);
 });
 
 //Return object with matching ID
