@@ -77,7 +77,7 @@ function addTicket(ticket){
   });
 }
 
-async function getTickets(){
+function getTickets(){
   //Array to hold tickets after retrival.
   var all_tickets = [];
 
@@ -85,41 +85,28 @@ async function getTickets(){
   const client = new MongoClient(uri);
 
   //This will place all tickets in the collection into the array.
-  async function run(){
-    try {
-      const database = client.db('415Tickets');
-      const tickets = database.collection('Tickets');
+  const database = client.db('415Tickets');
+  const tickets = database.collection('Tickets');
 
-      //Find returns a 'cursor' object, from which data is accessed.
-      //With no params, it should return everything.
-      var cursor = tickets.find({});
+  //Find returns a 'cursor' object, from which data is accessed.
+  //With no params, it should return everything.
+  var cursor = tickets.find({});
 
-      //forEach should run the listed function on each element returned.
-      //console.log("Database Contents:");
-      while(await cursor.hasNext()){
-        var x = await cursor.tryNext();
-        console.log("Adding to all_tickets...");
-        console.log(x);
-        all_tickets[all_tickets.length] = x;
-        console.log("Contents of All Tickets...");
-        console.log(all_tickets);
-      }
-
-    } finally {
-
-      await client.close();
-      console.log("About to return all_tickets.");
-      console.log("The contents are:");
-      console.log(all_tickets);
-      let promise = new Promise(function(resolve){
-        resolve(all_tickets);
-      });
-      return all_tickets;
-    }
-
+  //forEach should run the listed function on each element returned.
+  //console.log("Database Contents:");
+  while(cursor.hasNext()){
+    var x = cursor.tryNext();
+    console.log("Adding to all_tickets...");
+    console.log(x);
+    all_tickets[all_tickets.length] = x;
+    console.log("Contents of All Tickets...");
+    console.log(all_tickets);
   }
-
-  run().catch(console.dir);
+  client.close();
+  console.log("About to return all_tickets.");
+  console.log("The contents are:");
+  console.log(all_tickets);
+  return all_tickets;
 }
 
 
