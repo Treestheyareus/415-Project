@@ -71,20 +71,41 @@ app.get('/rest/ticket/:id', function(req, res) {
 
   f1();
   
-  /*
-  console.log("Response is...");
-  console.log(response);
-  res.send(response);
-  */
-  
 });
 
 //Create a new ticket by sending a JSON file
-app.post('/rest/ticket/', function(req, res) {
-  var input = req.body;
-  addTicket(input);
-  res.json(input);
-  
+app.post('/rest/ticket/', function(req, res) {  
+
+  async function f1(){
+    //Setup
+    var input = req.body;
+    const client = new MongoClient(uri);
+    const database = client.db('415Tickets');
+    const tickets = database.collection('Tickets');
+
+    //Can we add it?
+    const newID = input.id;
+    console.log("Attempting to add ticket with id:" + newID);
+    const q = { id:parseInt(newID) };
+    dupe = await tickets.findOne(q);
+    if (dupe == null){
+      console.log("id:" + newID + " is ok to add.");
+    }
+
+    else{
+      res.send("There is already a ticket with that id.")
+    }
+    
+    //Insert it
+    const result = await tickets.insertOne(input);
+
+    //finally...
+    await client.close();
+    res.json(input);
+  }
+
+  f1();
+
 });
 
 
