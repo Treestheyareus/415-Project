@@ -27,9 +27,9 @@ app.get('/', function(req, res) {
   res.send(outstring);
 });
 
-//Return all JSON objects in memory.
+//Return all documents in the database
 app.get('/rest/list/', function(req, res) {
-  j = getTickets();
+  var j = getTickets().then();
   console.log("Contents of 'j' are:");
   console.log(j);
   res.send(j);
@@ -73,9 +73,9 @@ function getTickets(){
   var all_tickets = [];
 
   //Now using mongodb as data source.
-  //This will place all tickets in the collection into the array.
   const client = new MongoClient(uri);
 
+  //This will place all tickets in the collection into the array.
   async function run(){
     try {
       
@@ -100,18 +100,15 @@ function getTickets(){
     } finally {
 
       await client.close();
+      console.log("About to return all_tickets.");
+      console.log("The contents are:");
+      console.log(all_tickets);
       return all_tickets;
     }
 
   }
 
   run().catch(console.dir);
-
-  //Return the array of tickets.
-  console.log("About to return all_tickets.");
-  console.log("The contents are:");
-  console.log(all_tickets);
-  return all_tickets;
 }
 
 
