@@ -57,7 +57,8 @@ app.get('/rest/ticket/:id', function(req, res) {
     //Except for the search term between brackets in the line below.
     console.log("Search term is: " + search_id);
     const q = { id:[search_id] };
-    console.log("query is..." + q);
+    const sq = json.stringify(q);
+    console.log("query is..." + sq);
     response = await tickets.findOne(q);
     await client.close();
     console.log("Response is...");
