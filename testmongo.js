@@ -21,9 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', function(req, res) {
   const myquery = req.query;
   var outstring = "<h1>Welcome</h1>";
-  var outstring = outstring + "Get Tickets with '/rest/list'";
-  var outstring = outstring + "<br> Get One Ticket with '/rest/ticket/:id'";
-  var outstring = outstring + "<br> Add a Ticket by sending JSON to '/rest/ticket'";
+  var outstring = outstring + "Get Tickets with GET '/rest/list'";
+  var outstring = outstring + "<br> Get One Ticket with GET '/rest/ticket/:id'";
+  var outstring = outstring + "<br> Add a Ticket by sending JSON to POST '/rest/ticket'";
+  var outstring = outstring + "<br> Delete a Ticket by DELETE '/rest/ticket/:id'";
+  var outstring = outstring + "<br> Update a Ticket by PUT '/rest/ticket/:id'";
   res.send(outstring);
 });
 
@@ -108,7 +110,35 @@ app.post('/rest/ticket/', function(req, res) {
 
 });
 
+app.delete('/rest/ticket/:id', function(req, res){
+  //Delete a ticket.
 
+  async function f1(){
+    //Store ID to find targets.
+    const search_id = req.params.id;
+
+    //Setup
+    const client = new MongoClient(uri);
+    const database = client.db('415Tickets');
+    const tickets = database.collection('Tickets');
+
+    //Delete it
+    const q = { id:parseInt(search_id) };
+    const result = await tickets.deleteMany(q);
+    console.log("Deleted " + result.deletedCount + " tickets.");
+
+    //Finally
+    await client.close();
+    res.send("Deleted " + result.deletedCount + " tickets.");
+  }
+
+  f1();
+  
+});
+
+app.put('/rest/ticket/:id', function(req, res){
+  //Update a ticket.
+});
 
 function addTicket(ticket){
   text = JSON.stringify(ticket);
