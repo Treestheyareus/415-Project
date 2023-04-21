@@ -100,7 +100,7 @@ function getTickets(){
     } finally {
 
       await client.close();
-
+      return all_tickets;
     }
 
   }
