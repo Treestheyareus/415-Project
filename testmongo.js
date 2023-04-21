@@ -63,6 +63,9 @@ app.get('/rest/ticket/:id', function(req, res) {
     await client.close();
     console.log("Response is...");
     console.log(response);
+    if(response == null){
+      res.send("No results.");
+    }
     res.send(response);
   }
 
