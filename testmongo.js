@@ -28,10 +28,10 @@ app.get('/', function(req, res) {
 });
 
 //Return all documents in the database
-app.get('/rest/list/', function(req, res) {
-  var j = getTickets().then(
-    console.log("Contents of 'j' are..."));
-    console.log(j);
+app.get('/rest/list/', async function(req, res) {
+  var j = await getTickets();
+  console.log("Contents of 'j' are...");
+  console.log(j);
   res.send(j);
 });
 
@@ -68,7 +68,7 @@ function addTicket(ticket){
   });
 }
 
-function getTickets(){
+async function getTickets(){
   //Array to hold tickets after retrival.
   var all_tickets = [];
 
