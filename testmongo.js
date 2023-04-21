@@ -94,15 +94,15 @@ function getTickets(){
 
     //forEach should run the listed function on each element returned.
     //console.log("Database Contents:");
-    while(cursor.hasNext()){
-      var x = cursor.tryNext();
+    while(await cursor.hasNext()){
+      var x = await cursor.tryNext();
       console.log("Adding to all_tickets...");
       console.log(x);
       all_tickets[all_tickets.length] = x;
       console.log("Contents of All Tickets...");
       console.log(all_tickets);
     }
-    client.close();
+    await client.close();
     console.log("About to return all_tickets.");
     console.log("The contents are:");
     console.log(all_tickets);
