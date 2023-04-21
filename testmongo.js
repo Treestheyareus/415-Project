@@ -29,9 +29,9 @@ app.get('/', function(req, res) {
 
 //Return all documents in the database
 app.get('/rest/list/', function(req, res) {
-  var j = getTickets().then();
-  console.log("Contents of 'j' are:");
-  console.log(j);
+  var j = getTickets().then(
+    console.log("Contents of 'j' are..."));
+    console.log(j);
   res.send(j);
 });
 
