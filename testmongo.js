@@ -60,11 +60,7 @@ app.get('/rest/ticket/:id', function(req, res) {
 
     //forEach should run the listed function on each element returned.
     //console.log("Database Contents:");
-    while(await cursor.hasNext()){
-      var x = await cursor.tryNext();
-      response[response.length] = x;
-      console.log("Hit.");
-    }
+    await cursor.forEach(console.dir);
     await client.close();
   }
 
