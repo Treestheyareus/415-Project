@@ -143,7 +143,7 @@ app.put('/rest/ticket/:id', function(req, res){
     //Store ID to find targets.
     const search_id = req.params.id;
     const b = req.body;
-    const document = { $set: { b } };
+    const document = { $set: b };
     console.log("The update contents are:");
     console.log(document);
 
