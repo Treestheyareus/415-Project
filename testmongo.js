@@ -142,7 +142,7 @@ app.put('/rest/ticket/:id', function(req, res){
   async function f1(){
     //Store ID to find targets.
     const search_id = req.params.id;
-    const document = rq.body;
+    const document = req.body;
 
     //Setup
     const client = new MongoClient(uri);
