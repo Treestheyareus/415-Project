@@ -144,6 +144,8 @@ app.put('/rest/ticket/:id', function(req, res){
     const search_id = req.params.id;
     const b = req.body;
     const document = { $set: { b } };
+    console.log("The update contents are:");
+    console.log(document);
 
     //Setup
     const client = new MongoClient(uri);
